@@ -54,11 +54,15 @@ export default {
     methods:{
         sublimtLogin(){
             this.$refs.loginFormRef.validate((valid,errorObject) =>{
+                // 验证不通过不提交数据
                 if(!valid) return;
+                // 请求登陆接口
                 this.$http.get('/currentprice.json').then(res =>{
                     if(res.status==200){
                         this.$message.success('请求成功')
+                        // 保存token 
                         window.sessionStorage.setItem("token",res.data);
+                        // 跳转到/home
                         this.$router.push('/home')
                     }
                 })
@@ -66,6 +70,7 @@ export default {
             })
         },
         reset(){
+            //重置表单
             this.$refs.loginFormRef.resetFields();
         }
     }
