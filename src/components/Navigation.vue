@@ -1,17 +1,18 @@
 <template>
   <el-menu :default-active="$route.path"
-           :router="isRouter"
+           router
+           unique-opened
            class="navigation"
-           mode="horizontal">
-    <el-menu-item index="/home"
-                  route="/home">首页</el-menu-item>
-    <el-menu-item index="/about"
-                  route="/about">商城</el-menu-item>
+           mode="horizontal"
+           text-color="#000"
+           active-text-color="FFF">
+    <el-menu-item index="/welcome">欢迎</el-menu-item>
+    <el-menu-item index="/about">商城</el-menu-item>
     <el-submenu index="/">
       <template slot="title">个人中心</template>
-      <el-menu-item index="2-1">账号设置</el-menu-item>
+      <el-menu-item>账号设置</el-menu-item>
     </el-submenu>
-    <el-menu-item index="/logout">
+    <el-menu-item>
       <el-button type="text"
                  @click="logout">退出</el-button>
     </el-menu-item>
@@ -24,7 +25,7 @@ export default {
   name: 'Navigation',
   data () {
     return {
-      isRouter: true
+
     }
   },
   methods: {
@@ -47,8 +48,14 @@ export default {
 </script>
 <style lang="less" scoped>
 .navigation {
+  background-color: rgba(0, 0, 0, 0);
   display: flex;
   justify-content: flex-end;
   padding-right: 30px;
+  border: none;
+}
+
+.popper_class {
+  background-color: #000;
 }
 </style>

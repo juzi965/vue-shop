@@ -21,6 +21,9 @@ import {
   MenuItem,
   MenuItemGroup,
   Popconfirm,
+  Carousel,
+  CarouselItem,
+  Image
 } from 'element-ui'
 
 Vue.use(Button)
@@ -41,7 +44,14 @@ Vue.use(Submenu)
 Vue.use(MenuItem)
 Vue.use(MenuItemGroup)
 Vue.use(Popconfirm)
+Vue.use(Carousel)
+Vue.use(CarouselItem)
+Vue.use(Image)
+
+
 
 //挂载消息弹框属性
 Vue.prototype.$message = Message
+
+//挂载confirm属性
 Vue.prototype.$confirm = MessageBox.confirm

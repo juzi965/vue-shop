@@ -72,7 +72,7 @@ export default {
             // 保存token
             window.sessionStorage.setItem('token', res.data)
             // 跳转到/home
-            this.$router.push('/home')
+            this.$router.push('/index')
           }
         })
       })
