@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import 'element-ui/lib/theme-chalk/index.css';
+import 'element-ui/lib/theme-chalk/base.css';
 import {
   Button,
   Form,
@@ -23,9 +24,13 @@ import {
   Popconfirm,
   Carousel,
   CarouselItem,
-  Image
+  Image,
+  Divider,
+  ButtonGroup,
+  Badge
 } from 'element-ui'
 
+import CollapseTransition from 'element-ui/lib/transitions/collapse-transition';
 Vue.use(Button)
 Vue.use(Form)
 Vue.use(FormItem)
@@ -47,6 +52,11 @@ Vue.use(Popconfirm)
 Vue.use(Carousel)
 Vue.use(CarouselItem)
 Vue.use(Image)
+Vue.use(Divider)
+Vue.use(ButtonGroup)
+Vue.use(Badge)
+
+Vue.component(CollapseTransition.name, CollapseTransition)
 
 
 

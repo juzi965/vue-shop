@@ -1,13 +1,16 @@
 <template>
   <!-- 导航菜单栏 -->
   <el-container>
-    <el-header class="header">
+    <el-header class="header"
+               height="80px">
       <Navigation></Navigation>
     </el-header>
     <el-main class="main">
       <router-view />
     </el-main>
-    <el-footer class="footer">Footer</el-footer>
+    <el-footer class="footer">
+      <Footer></Footer>
+    </el-footer>
 
   </el-container>
 
@@ -27,7 +30,12 @@ export default {
 
 <style lang="less" scoped>
 .header {
-  margin: 0;
-  padding: 0;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  z-index: 999;
+}
+.main {
+  padding-top: 100px;
 }
 </style>
