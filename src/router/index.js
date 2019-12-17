@@ -20,6 +20,9 @@ const routes = [{
     }, {
       path: '/shop',
       component: () => import('../components/Shop.vue')
+    }, {
+      path: '/fitting-room',
+      component: () => import('../components/FittingRoom.vue')
     }]
   },
   {

@@ -16,7 +16,7 @@
                  active-text-color="#FF1232">
           <el-menu-item index="/welcome">首页</el-menu-item>
           <el-menu-item index="/shop">商城</el-menu-item>
-          <el-menu-item index="/goodinfo">商品详情</el-menu-item>
+          <el-menu-item index="/fitting-room">试衣间</el-menu-item>
         </el-menu>
       </el-col>
       <el-col :span="7">
@@ -96,9 +96,12 @@ div {
   padding-top: 20px;
   height: 100%;
   .el-col {
-    line-height:40px;
+    line-height: 40px;
     font-size: 20px;
     font-weight: 800;
+    i {
+      cursor: pointer;
+    }
     .el-badge {
       font-size: 15px;
       font-weight: 400;

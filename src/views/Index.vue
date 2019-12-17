@@ -31,9 +31,11 @@ export default {
 <style lang="less" scoped>
 .header {
   width: 100%;
+  background: #ffffff;
   position: fixed;
   top: 0;
   z-index: 999;
+  border-bottom: #eee solid 1px;
 }
 .main {
   padding-top: 100px;

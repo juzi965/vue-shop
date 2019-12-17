@@ -6,6 +6,15 @@ import {
   Form,
   FormItem,
   Input,
+  InputNumber,
+  Radio,
+  RadioGroup,
+  RadioButton,
+  Checkbox,
+  CheckboxButton,
+  CheckboxGroup,
+  Slider,
+  Progress,
   Message,
   MessageBox,
   Card,
@@ -27,7 +36,8 @@ import {
   Image,
   Divider,
   ButtonGroup,
-  Badge
+  Badge,
+  Rate
 } from 'element-ui'
 
 import CollapseTransition from 'element-ui/lib/transitions/collapse-transition';
@@ -35,6 +45,15 @@ Vue.use(Button)
 Vue.use(Form)
 Vue.use(FormItem)
 Vue.use(Input)
+Vue.use(InputNumber)
+Vue.use(Radio)
+Vue.use(RadioGroup)
+Vue.use(RadioButton)
+Vue.use(Checkbox)
+Vue.use(CheckboxButton)
+Vue.use(CheckboxGroup)
+Vue.use(Slider)
+Vue.use(Progress)
 Vue.use(Card)
 Vue.use(Header)
 Vue.use(Aside)
@@ -55,6 +74,7 @@ Vue.use(Image)
 Vue.use(Divider)
 Vue.use(ButtonGroup)
 Vue.use(Badge)
+Vue.use(Rate)
 
 Vue.component(CollapseTransition.name, CollapseTransition)
 

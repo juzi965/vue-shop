@@ -15,10 +15,10 @@
                      class="login_form"
                      :model="loginForm"
                      :rules="loginFormRules">
-              <el-form-item prop="username">
+              <el-form-item prop="accountName">
                 <el-input placeholder="请输入账号"
                           prefix-icon="el-icon-user"
-                          v-model="loginForm.username" />
+                          v-model="loginForm.accountName" />
               </el-form-item>
               <el-form-item prop="password">
                 <el-input type="password"
@@ -45,11 +45,11 @@ export default {
   data () {
     return {
       loginForm: {
-        username: 'admin',
+        accountName: 'juzi965@163.com',
         password: '123456'
       },
       loginFormRules: {
-        username: [
+        accountName: [
           { required: true, message: '请输入账号', trigger: 'blur' },
           { min: 3, max: 15, message: '长度在 3 到 15 个字符', trigger: 'blur' }
         ],
@@ -66,13 +66,17 @@ export default {
         // 验证不通过不提交数据
         if (!valid) return
         // 请求登陆接口
-        this.$http.get('/currentprice.json').then(res => {
-          if (res.status == 200) {
-            this.$message.success('请求成功')
+        const qs = require('qs');
+        this.$http.post('/user/login', qs.stringify(this.loginForm)).then(res => {
+          if (res.data.code == 10000) {
+            this.$message.success('欢迎您')
             // 保存token
             window.sessionStorage.setItem('token', res.data)
             // 跳转到/home
             this.$router.push('/index')
+          } else {
+            this.$message.warning('登陆失败')
+
           }
         })
       })
