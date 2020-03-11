@@ -69,13 +69,13 @@ export default {
         const qs = require('qs');
         this.$http.post('/user/login', qs.stringify(this.loginForm)).then(res => {
           if (res.data.code == 10000) {
-            this.$message.success('欢迎您')
-            // 保存token
-            window.sessionStorage.setItem('token', res.data)
-            // 跳转到/home
+            this.$message.success('欢迎回来')
+            //保存用户信息
+            this.$store.commit('setUserInfo', res.data.data)
+            // 跳转到/index
             this.$router.push('/index')
           } else {
-            this.$message.warning('登陆失败')
+            this.$message.warning(res.data.message)
 
           }
         })

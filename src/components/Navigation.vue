@@ -3,11 +3,11 @@
     <el-row type="flex"
             justify="space-between">
       <el-col :span="4">
-        <span class="title">Shop</span>
+        <span class="title">HooYa</span>
       </el-col>
 
       <el-col :span="8">
-        <el-menu :default-active="$route.path"
+        <el-menu :default-active="this.$route.path"
                  router
                  :collapse="isCollapse"
                  :mode="whatMode"
@@ -15,22 +15,43 @@
                  text-color="#000000"
                  active-text-color="#FF1232">
           <el-menu-item index="/welcome">首页</el-menu-item>
-          <el-menu-item index="/shop">商城</el-menu-item>
-          <el-menu-item index="/fitting-room">试衣间</el-menu-item>
+          <el-submenu index="/shop/全部"
+                      popper-class="popper">
+            <template slot="title">商城</template>
+            <el-menu-item index="/shop/全部">全部</el-menu-item>
+            <el-menu-item index="/shop/男士">男士</el-menu-item>
+            <el-menu-item index="/shop/女士">女士</el-menu-item>
+            <el-menu-item index="/shop/儿童">儿童</el-menu-item>
+            <el-menu-item index="/shop/上衣">上衣</el-menu-item>
+            <el-menu-item index="/shop/裤子">裤子</el-menu-item>
+            <el-menu-item index="/shop/内衣">内衣</el-menu-item>
+            <el-menu-item index="/shop/帽子">帽子</el-menu-item>
+          </el-submenu>
+          <!-- <el-menu-item index="/fitting-room">试衣间</el-menu-item> -->
         </el-menu>
       </el-col>
       <el-col :span="7">
         <el-row type="flex"
                 justify="end"
-                class="head_right">
-          <el-col :span="4"><i class="el-icon-search"></i></el-col>
-          <el-col :span="3"><i class="el-icon-user"></i></el-col>
+                class="head_right"
+                :gutter="20">
+          <el-col :span="12"
+                  :offset="-3">
+            <el-input v-model="keyWord"
+                      suffix-icon="el-icon-search"
+                      placeholder="搜索商品"
+                      size="small"
+                      @keyup.enter.native="onEnterSearch" />
+          </el-col>
+          <el-col :span="3"><i class="el-icon-user"
+               @click="myAccount"></i></el-col>
           <el-col :span="3">
-            <el-badge :value="cardNum">
-              <i class="el-icon-shopping-bag-1"></i>
+            <el-badge :value="this.shoppingCart.length">
+              <i class="el-icon-shopping-bag-1"
+                 @click="pushShoppingCart"></i>
             </el-badge>
           </el-col>
-          <el-col :span="7"><i @click="logout"
+          <el-col :span="5"><i @click="logout"
                class="el-icon-close"></i></el-col>
         </el-row>
       </el-col>
@@ -45,15 +66,38 @@ export default {
   data () {
     return {
       isCollapse: false,
-      whatMode: 'horizontal'
+      whatMode: 'horizontal',
+      seachRules: {
+        seach: [{ message: '请输入活动名称' }]
+      },
+      keyWord: '',
     }
+  },
+  created () {
+
   },
   computed: {
-    cardNum () {
-      return this.$store.state.cardNum
-    }
+    shoppingCart () {
+      return this.$store.state.shoppingCart;
+    },
   },
   methods: {
+    onEnterSearch () {
+      console.log("search: " + this.keyWord);
+      this.$router.push({
+        path: '/shop/' + this.keyWord,
+      })
+    },
+    myAccount () {
+      this.$router.push('/my-account').catch(error => {
+        console.log(error)
+      })
+    },
+    pushShoppingCart () {
+      this.$router.push('/shopping-cart').catch(error => {
+        console.log(error)
+      })
+    },
     logout () {
       this.$confirm('确定要退出吗？', '提示', {
         confirmButtonText: '残忍离开',
@@ -73,15 +117,11 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-div {
-  // width: 200px;
-}
 .title {
-  font-family: "Courier New", Courier, monospace;
   z-index: 9999;
-  font-size: 38px;
+  font-size: 40px;
   line-height: 80px;
-  color: #ff1232;
+  color: #000;
   font-weight: 600;
 }
 .el-menu {
@@ -91,6 +131,9 @@ div {
     font-size: 15px;
     font-weight: 500;
   }
+}
+.popper {
+  text-align: center;
 }
 .head_right {
   padding-top: 20px;

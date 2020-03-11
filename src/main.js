@@ -1,21 +1,14 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-import Vuex from 'vuex'
-import store from './vuex/store'
+import store from './vuex/store.js'
 import './plugins/element.js'
-import './plugins/axios'
-import './assets/css/global.css'
+import './plugins/axios.js'
 import Navigation from './components/Navigation'
 import Footer from './components/Footer'
 
-
-
-Vue.use(Vuex)
-
 Vue.component('Navigation', Navigation)
 Vue.component('Footer', Footer)
-
 
 Vue.config.productionTip = false
 

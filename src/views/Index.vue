@@ -1,7 +1,7 @@
 <template>
   <!-- 导航菜单栏 -->
   <el-container>
-    <el-header class="header"
+    <el-header :class="{'header':true,'isFixed':isFixed}"
                height="80px">
       <Navigation></Navigation>
     </el-header>
@@ -20,10 +20,26 @@
 export default {
   data () {
     return {
+      scroll: 0,
+      isFixed: true
     }
   },
+  mounted () {
+    window.addEventListener('scroll', this.Scroll) // 监听滚动事件，然后用handleScroll这个方法进行相应的处理
+  },
+  destroyed () {
+    document.removeEventListener('scroll', this.Scroll)
+  },
   methods: {
-
+    Scroll () {
+      let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+      if (scrollTop > this.scroll) {
+        this.isFixed = false
+      } else {
+        this.isFixed = true
+      }
+      this.scroll = scrollTop;
+    }
   }
 }
 </script>
@@ -32,10 +48,12 @@ export default {
 .header {
   width: 100%;
   background: #ffffff;
+  border-bottom: #eee solid 1px;
+}
+.isFixed {
   position: fixed;
   top: 0;
   z-index: 999;
-  border-bottom: #eee solid 1px;
 }
 .main {
   padding-top: 100px;

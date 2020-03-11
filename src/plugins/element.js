@@ -28,6 +28,8 @@ import {
   Avatar,
   Menu,
   Submenu,
+  Select,
+  Option,
   MenuItem,
   MenuItemGroup,
   Popconfirm,
@@ -37,7 +39,17 @@ import {
   Divider,
   ButtonGroup,
   Badge,
-  Rate
+  Rate,
+  DatePicker,
+  Dialog,
+  Link,
+  Table,
+  TableColumn,
+  Tag,
+  Drawer,
+  Tooltip,
+  Pagination,
+  Scrollbar
 } from 'element-ui'
 
 import CollapseTransition from 'element-ui/lib/transitions/collapse-transition';
@@ -53,6 +65,8 @@ Vue.use(Checkbox)
 Vue.use(CheckboxButton)
 Vue.use(CheckboxGroup)
 Vue.use(Slider)
+Vue.use(Select)
+Vue.use(Option)
 Vue.use(Progress)
 Vue.use(Card)
 Vue.use(Header)
@@ -75,6 +89,16 @@ Vue.use(Divider)
 Vue.use(ButtonGroup)
 Vue.use(Badge)
 Vue.use(Rate)
+Vue.use(DatePicker)
+Vue.use(Dialog)
+Vue.use(Link)
+Vue.use(Table)
+Vue.use(TableColumn)
+Vue.use(Tag)
+Vue.use(Drawer)
+Vue.use(Tooltip)
+Vue.use(Pagination)
+Vue.use(Scrollbar)
 
 Vue.component(CollapseTransition.name, CollapseTransition)
 
