@@ -1,19 +1,19 @@
 <template>
   <div class="main_carousel">
     <el-carousel height="700px"
-                 :interval="5000"
-                 arrow="never">
+      :interval="5000"
+      arrow="never">
       <el-carousel-item v-for="(clothingInfo,index) in clothingInfos"
-                        :key="index">
+        :key="index">
 
         <img class="image_size"
-             fit="fill"
-             @click="getClothingInfo(clothingInfo.id)"
-             :src="clothingInfo.pictureInfoList[0].fileDomain+clothingInfo.pictureInfoList[0].path" />
+          fit="fill"
+          @click="getClothingInfo(clothingInfo.id)"
+          :src="clothingInfo.pictureInfoList[0].fileDomain+clothingInfo.pictureInfoList[0].path" />
         <img class="image_size"
-             fit="fill"
-             @click="getClothingInfo(clothingInfo.id)"
-             :src="clothingInfo.pictureInfoList[1].fileDomain+clothingInfo.pictureInfoList[1].path" />
+          fit="fill"
+          @click="getClothingInfo(clothingInfo.id)"
+          :src="clothingInfo.pictureInfoList[1].fileDomain+clothingInfo.pictureInfoList[1].path" />
       </el-carousel-item>
     </el-carousel>
 
@@ -22,27 +22,25 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
-      clothingInfos: {},
-     }
+      clothingInfos: {}
+    }
   },
-  created () {
+  created() {
     this.initData()
   },
   methods: {
-    initData () {
-      this.$http
-        .get('/clothing/category/男士')
-        .then(res => {
-          if (res.data.code == 10000) {
-            this.clothingInfos = res.data.data
-          } else {
-            this.$message.warning(res.data.message)
-          }
-        })
+    initData() {
+      this.$http.get('/clothing/category/男士/1/5').then(res => {
+        if (res.data.code == 10000) {
+          this.clothingInfos = res.data.data.list
+        } else {
+          this.$message.warning(res.data.message)
+        }
+      })
     },
-    getClothingInfo (id) {
+    getClothingInfo(id) {
       this.$router.push({
         path: '/fitting-room',
         query: {
@@ -50,11 +48,8 @@ export default {
         }
       })
     }
-
   },
-  components: {
-
-  }
+  components: {}
 }
 </script>
 

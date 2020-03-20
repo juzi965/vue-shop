@@ -1,22 +1,22 @@
 <template>
   <div class="nav">
     <el-row type="flex"
-            justify="space-between">
+      justify="space-between">
       <el-col :span="4">
         <span class="title">HooYa</span>
       </el-col>
 
       <el-col :span="8">
         <el-menu :default-active="this.$route.path"
-                 router
-                 :collapse="isCollapse"
-                 :mode="whatMode"
-                 background-color="#FFFFFF"
-                 text-color="#000000"
-                 active-text-color="#FF1232">
+          router
+          :collapse="isCollapse"
+          :mode="whatMode"
+          background-color="#FFFFFF"
+          text-color="#000000"
+          active-text-color="#FF1232">
           <el-menu-item index="/welcome">首页</el-menu-item>
           <el-submenu index="/shop/全部"
-                      popper-class="popper">
+            popper-class="popper">
             <template slot="title">商城</template>
             <el-menu-item index="/shop/全部">全部</el-menu-item>
             <el-menu-item index="/shop/男士">男士</el-menu-item>
@@ -32,27 +32,27 @@
       </el-col>
       <el-col :span="7">
         <el-row type="flex"
-                justify="end"
-                class="head_right"
-                :gutter="20">
+          justify="end"
+          class="head_right"
+          :gutter="20">
           <el-col :span="12"
-                  :offset="-3">
+            :offset="-3">
             <el-input v-model="keyWord"
-                      suffix-icon="el-icon-search"
-                      placeholder="搜索商品"
-                      size="small"
-                      @keyup.enter.native="onEnterSearch" />
+              suffix-icon="el-icon-search"
+              placeholder="搜索商品"
+              size="small"
+              @keyup.enter.native="onEnterSearch" />
           </el-col>
           <el-col :span="3"><i class="el-icon-user"
-               @click="myAccount"></i></el-col>
+              @click="myAccount"></i></el-col>
           <el-col :span="3">
             <el-badge :value="this.shoppingCart.length">
               <i class="el-icon-shopping-bag-1"
-                 @click="pushShoppingCart"></i>
+                @click="pushShoppingCart"></i>
             </el-badge>
           </el-col>
           <el-col :span="5"><i @click="logout"
-               class="el-icon-close"></i></el-col>
+              class="el-icon-close"></i></el-col>
         </el-row>
       </el-col>
     </el-row>
@@ -63,42 +63,38 @@
 <script>
 export default {
   name: 'Navigation',
-  data () {
+  data() {
     return {
       isCollapse: false,
       whatMode: 'horizontal',
       seachRules: {
         seach: [{ message: '请输入活动名称' }]
       },
-      keyWord: '',
+      keyWord: ''
     }
   },
-  created () {
-
-  },
   computed: {
-    shoppingCart () {
-      return this.$store.state.shoppingCart;
-    },
+    shoppingCart() {
+      return this.$store.state.shoppingCart
+    }
   },
   methods: {
-    onEnterSearch () {
-      console.log("search: " + this.keyWord);
+    onEnterSearch() {
       this.$router.push({
-        path: '/shop/' + this.keyWord,
+        path: '/shop/' + this.keyWord
       })
     },
-    myAccount () {
+    myAccount() {
       this.$router.push('/my-account').catch(error => {
         console.log(error)
       })
     },
-    pushShoppingCart () {
+    pushShoppingCart() {
       this.$router.push('/shopping-cart').catch(error => {
         console.log(error)
       })
     },
-    logout () {
+    logout() {
       this.$confirm('确定要退出吗？', '提示', {
         confirmButtonText: '残忍离开',
         cancelButtonText: '我不是，我没有',

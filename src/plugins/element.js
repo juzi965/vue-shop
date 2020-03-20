@@ -49,7 +49,9 @@ import {
   Drawer,
   Tooltip,
   Pagination,
-  Scrollbar
+  Scrollbar,
+  Popover,
+  Notification
 } from 'element-ui'
 
 import CollapseTransition from 'element-ui/lib/transitions/collapse-transition';
@@ -99,6 +101,7 @@ Vue.use(Drawer)
 Vue.use(Tooltip)
 Vue.use(Pagination)
 Vue.use(Scrollbar)
+Vue.use(Popover)
 
 Vue.component(CollapseTransition.name, CollapseTransition)
 
@@ -106,6 +109,7 @@ Vue.component(CollapseTransition.name, CollapseTransition)
 
 //挂载消息弹框属性
 Vue.prototype.$message = Message
+Vue.prototype.$notify = Notification
 
 //挂载confirm属性
 Vue.prototype.$confirm = MessageBox.confirm

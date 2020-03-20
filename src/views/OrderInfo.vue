@@ -2,15 +2,15 @@
   <div>
     <el-card>
       <div slot="header"
-           class="clearfix">
+        class="clearfix">
         <span>订单信息</span>
       </div>
       <div v-for="(orderInfo, index) in pageInfo.list"
-           :key="index">
+        :key="index">
         <el-row :gutter="20">
           <el-col :span="3">
             <img :src="orderInfo.orderItem[0].imgUrl"
-                 class="image" />
+              class="image" />
           </el-col>
           <el-col :span="18">
             <el-row>
@@ -23,16 +23,16 @@
               </el-col>
 
               <el-col :span="11">
-                <h4 style="margin-top: 10px;">收件人：{{ orderInfo.addressInfo.recipient }}</h4>
-                <p style="margin-top: 5px;margin-bottom: 5px;">手机号：{{ orderInfo.addressInfo.phoneNum }}</p>
-                <span style="font-size: 15px;">收货地址：{{ orderInfo.addressInfo.address }}</span>
+                <h4 style="margin-top: 10px;">收件人：{{ orderInfo.recipient }}</h4>
+                <p style="margin-top: 5px;margin-bottom: 5px;">手机号：{{ orderInfo.phoneNum }}</p>
+                <span style="font-size: 15px;">收货地址：{{ orderInfo.address }}</span>
               </el-col>
               <el-col :span="13"
-                      style="height:100px; margin-top: 10px;">
+                style="height:100px; margin-top: 10px;">
                 <el-scrollbar style="height:100%;">
                   <el-tooltip placement="bottom"
-                              v-for="(item, index) in orderInfo.orderItem"
-                              :key="index">
+                    v-for="(item, index) in orderInfo.orderItem"
+                    :key="index">
                     <div slot="content">
                       尺寸：{{ item.size }} <br />数量：{{
                       item.num
@@ -42,10 +42,10 @@
                     }}
                     </div>
                     <el-button type="primary"
-                               size="small"
-                               style="margin-top:10px;margin-left:10px"
-                               @click="getClothingInfo(item.clothingId)"
-                               plain>{{ item.clothingName }}</el-button>
+                      size="small"
+                      style="margin-top:10px;margin-left:10px"
+                      @click="getClothingInfo(item.clothingId)"
+                      plain>{{ item.clothingName }}</el-button>
                   </el-tooltip>
                 </el-scrollbar>
 
@@ -57,34 +57,35 @@
             <el-row style="text-align: center;">
               <el-col style="margin-bottom:5px;">
                 <el-button type="warning"
-                           size="small"
-                           @click="pay(orderInfo.orderId)"
-                           v-if="orderInfo.payFlag === 0">去支付</el-button>
+                  size="small"
+                  @click="pay(orderInfo.orderId)"
+                  v-if="orderInfo.payFlag === 0">去支付</el-button>
                 <el-button type="warning"
-                           size="small"
-                           v-if="orderInfo.payFlag === 1">已支付</el-button>
+                  size="small"
+                  v-if="orderInfo.payFlag === 1">已支付</el-button>
               </el-col>
               <el-col style="margin-bottom:5px;">
                 <el-button type="primary"
-                           size="small"
-                           v-if="orderInfo.expressNum === ''">等待发货</el-button>
+                  size="small"
+                  v-if="orderInfo.expressNum === ''">等待发货</el-button>
                 <el-button type="primary"
-                           size="small"
-                           v-if="orderInfo.expressNum !== ''">查询物流</el-button>
+                  size="small"
+                  v-if="orderInfo.expressNum !== ''"
+                  @click="kdi(orderInfo.expressNum)">查询物流</el-button>
               </el-col>
               <el-col style="margin-bottom:5px;">
                 <el-button type="success"
-                           size="small"
-                           @click="confirmReceipt(orderInfo.orderId)"
-                           v-if="orderInfo.orderFlag === 0">确认收货</el-button>
+                  size="small"
+                  @click="confirmReceipt(orderInfo.orderId)"
+                  v-if="orderInfo.orderFlag === 0">确认收货</el-button>
                 <el-button type="success"
-                           size="small"
-                           v-if="orderInfo.orderFlag === 1">收货成功</el-button>
+                  size="small"
+                  v-if="orderInfo.orderFlag === 1">收货成功</el-button>
               </el-col>
               <el-col>
                 <el-button type="danger"
-                           size="small"
-                           @click="deleteOrder(orderInfo.orderId)">删除订单</el-button>
+                  size="small"
+                  @click="deleteOrder(orderInfo.orderId)">删除订单</el-button>
               </el-col>
             </el-row>
           </el-col>
@@ -93,36 +94,47 @@
       </div>
       <div style="text-align: center;">
         <el-pagination :page-size="5"
-                       :page-sizes="[2, 5, 10, 50]"
-                       layout="total,sizes,prev, pager, next"
-                       @current-change="changeCurrentPage"
-                       @size-change="changeSizePage"
-                       :total="pageInfo.total">
+          :page-sizes="[2, 5, 10, 50]"
+          layout="total,sizes,prev, pager, next"
+          @current-change="changeCurrentPage"
+          @size-change="changeSizePage"
+          :total="pageInfo.total">
         </el-pagination>
       </div>
     </el-card>
+    <el-dialog title="物流信息"
+      :visible.sync="dialogVisible"
+      width="30%">
+      <el-table :data="kdiInfo">
+        <el-table-column width="150"
+          property="time"
+          label="日期"></el-table-column>
+        <el-table-column property="status"
+          label="状态"></el-table-column>
+      </el-table>
+    </el-dialog>
     <el-drawer size="70%"
-               :visible.sync="drawerQrCode"
-               direction="ttb"
-               @open="showQrCode"
-               @close="closeQrCode">
+      :visible.sync="drawerQrCode"
+      direction="ttb"
+      @open="showQrCode"
+      @close="closeQrCode">
       <el-row type="flex"
-              justify="center">
+        justify="center">
         <el-col :span="4"
-                style="text-align:center">
+          style="text-align:center">
           <img src="https://gw.alipayobjects.com/zos/basement_prod/dd285986-f1d3-40a2-a92c-b252f2c31de0.svg"
-               alt="alipayLogo"
-               style="margin-bottom:10px" />
+            alt="alipayLogo"
+            style="margin-bottom:10px" />
           <h4 style="margin-bottom:20px">推荐支付宝付款</h4>
           <div ref="qrCodeDiv"
-               style="margin-bottom:20px"
-               id="qrcode">
+            style="margin-bottom:20px"
+            id="qrcode">
             正在加载二维码...
           </div>
           <el-button @click="showQrCode"
-                     type="primary"
-                     icon="el-icon-refresh"
-                     circle></el-button>
+            type="primary"
+            icon="el-icon-refresh"
+            circle></el-button>
         </el-col>
       </el-row>
     </el-drawer>
@@ -133,36 +145,33 @@
 import QRCode from 'qrcodejs2'
 const qs = require('qs')
 export default {
-  data () {
+  data() {
     return {
       currentPage: 1,
       pageSize: 5,
       pageInfo: {},
+      dialogVisible: false,
       drawerQrCode: false,
       timer: null,
-      orderId: ''
+      orderId: '',
+      kdiInfo: ''
     }
   },
-  created () {
+  created() {
     this.getData()
   },
   methods: {
-    changeCurrentPage (pageNum) {
+    changeCurrentPage(pageNum) {
       this.currentPage = pageNum
       this.getData()
     },
-    changeSizePage (pageSize) {
+    changeSizePage(pageSize) {
       this.pageSize = pageSize
       this.getData()
     },
-    getData () {
+    getData() {
       this.$http
-        .get(
-          '/order/' +
-          this.currentPage +
-          '/' +
-          this.pageSize
-        )
+        .get('/order/' + this.currentPage + '/' + this.pageSize)
         .then(res => {
           if (res.data.code == 10000) {
             this.pageInfo = res.data.data
@@ -171,7 +180,7 @@ export default {
           }
         })
     },
-    getClothingInfo (id) {
+    getClothingInfo(id) {
       this.$router.push({
         path: '/fitting-room',
         query: {
@@ -179,14 +188,13 @@ export default {
         }
       })
     },
-    confirmReceipt (orderId) {
+    confirmReceipt(orderId) {
       this.$confirm('确定收货？', '提示', {
         confirmButtonText: '确认',
         cancelButtonText: '取消',
         type: 'warning'
       })
         .then(() => {
-          const qs = require('qs')
           this.$http
             .post('/order/confirm-receipt', qs.stringify({ orderId: orderId }))
             .then(res => {
@@ -202,14 +210,13 @@ export default {
           this.$message.warning('取消')
         })
     },
-    deleteOrder (orderId) {
+    deleteOrder(orderId) {
       this.$confirm('确定删除订单？', '提示', {
         confirmButtonText: '确认',
         cancelButtonText: '取消',
         type: 'warning'
       })
         .then(() => {
-          const qs = require('qs')
           this.$http
             .post('/order/delete', qs.stringify({ orderId: orderId }))
             .then(res => {
@@ -225,11 +232,11 @@ export default {
           this.$message.warning('取消删除')
         })
     },
-    pay (orderId) {
+    pay(orderId) {
       this.orderId = orderId
       this.drawerQrCode = true
     },
-    showQrCode () {
+    showQrCode() {
       this.$http
         .post('/order/qrcode', qs.stringify({ orderId: this.orderId }))
         .then(res => {
@@ -254,7 +261,7 @@ export default {
           }
         })
     },
-    getPayState () {
+    getPayState() {
       this.$http
         .post('/order/pay-state', qs.stringify({ orderId: this.orderId }))
         .then(res => {
@@ -267,9 +274,15 @@ export default {
           }
         })
     },
-    closeQrCode () {
+    closeQrCode() {
       clearTimeout(this.timer)
       this.timer = null
+    },
+    kdi(no) {
+      this.$http.post('/other/kdi', qs.stringify({ no: no })).then(res => {
+        this.kdiInfo = res.data.data.result.list
+        this.dialogVisible = true
+      })
     }
   },
   components: {}
