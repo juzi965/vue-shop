@@ -1,21 +1,17 @@
 <template>
   <div>
     <el-card>
-      <div slot="header" class="clearfix">
+      <div slot="header"
+        class="clearfix">
         <span>地址信息</span>
-        <el-button
-          style="float: right; padding: 3px 0"
+        <el-button style="float: right; padding: 3px 0"
           type="text"
-          @click="addAddress"
-          >添加地址</el-button
-        >
+          @click="addAddress">添加地址</el-button>
       </div>
       <el-row :gutter="20">
-        <el-col
-          :span="12"
+        <el-col :span="12"
           v-for="addressInfo in addressInfos"
-          :key="addressInfo.id"
-        >
+          :key="addressInfo.id">
           <h4>
             收件人：
             <span>{{ addressInfo.recipient }}</span>
@@ -28,45 +24,45 @@
             收货地址：
             <span>{{ addressInfo.address }}</span>
           </span>
-          <el-button
-            type="danger"
+          <el-button type="danger"
             size="small"
             style="float:right;"
             icon="el-icon-delete"
             circle
-            @click="deleteAddress(addressInfo.id)"
-          ></el-button>
-          <el-button
-            type="primary"
+            @click="deleteAddress(addressInfo.id)"></el-button>
+          <el-button type="primary"
             size="small"
             style="float:right; margin-right:10px;"
             icon="el-icon-edit"
             @click="getAddress(addressInfo.id)"
-            circle
-          ></el-button>
+            circle></el-button>
           <el-divider></el-divider>
         </el-col>
       </el-row>
     </el-card>
-    <el-dialog title="收货地址" :visible.sync="dialogForm">
-      <el-form
-        ref="addressInfoFormRef"
+    <el-dialog title="收货地址"
+      :visible.sync="dialogForm">
+      <el-form ref="addressInfoFormRef"
         :model="addressInfoForm"
-        :rules="addressInfoFormRules"
-      >
-        <el-form-item label="收件人" prop="recipient">
+        :rules="addressInfoFormRules">
+        <el-form-item label="收件人"
+          prop="recipient">
           <el-input v-model="addressInfoForm.recipient"></el-input>
         </el-form-item>
-        <el-form-item label="手机号" prop="phoneNum">
+        <el-form-item label="手机号"
+          prop="phoneNum">
           <el-input v-model="addressInfoForm.phoneNum"></el-input>
         </el-form-item>
-        <el-form-item label="收货地址" prop="address">
+        <el-form-item label="收货地址"
+          prop="address">
           <el-input v-model="addressInfoForm.address"></el-input>
         </el-form-item>
       </el-form>
-      <div slot="footer" class="dialog-footer">
+      <div slot="footer"
+        class="dialog-footer">
         <el-button @click="dialogForm = false">取 消</el-button>
-        <el-button type="primary" @click="changeAddress">确 定</el-button>
+        <el-button type="primary"
+          @click="changeAddress">确 定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -93,7 +89,7 @@ export default {
         address: [
           { required: true, message: '请输入地址', trigger: 'blur' },
           {
-            min: 10,
+            min: 5,
             max: 50,
             message: '长度在 10 到 50 个字符',
             trigger: 'blur'

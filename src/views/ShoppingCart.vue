@@ -1,97 +1,98 @@
 <template>
   <div>
     <el-card v-if="shoppingCart">
-      <div slot="header" class="clearfix">
+      <div slot="header"
+        class="clearfix">
         <span>购物车</span>
       </div>
-      <el-table :data="shoppingCart" max-height="400">
-        <el-table-column label="图片" align="center">
+      <el-table :data="shoppingCart"
+        max-height="400">
+        <el-table-column label="图片"
+          align="center">
           <template slot-scope="scope">
-            <img :src="scope.row.img" height="50" />
+            <img :src="scope.row.img"
+              height="50" />
           </template>
         </el-table-column>
-        <el-table-column prop="name" label="商品名" align="center">
+        <el-table-column prop="name"
+          label="商品名"
+          align="center">
         </el-table-column>
-        <el-table-column prop="size" label="大小" align="center">
+        <el-table-column prop="size"
+          label="大小"
+          align="center">
         </el-table-column>
-        <el-table-column label="数量" align="center">
+        <el-table-column label="数量"
+          align="center">
           <template slot-scope="scope">
-            <el-input-number
-              v-model="scope.row.num"
+            <el-input-number v-model="scope.row.num"
               :min="1"
               :max="scope.row.stock"
               size="mini"
               label="商品购买数量"
-              @change="changeClothingNum"
-            ></el-input-number>
+              @change="changeClothingNum"></el-input-number>
           </template>
         </el-table-column>
-        <el-table-column prop="stock" label="库存量" align="center">
+        <el-table-column prop="stock"
+          label="库存量"
+          align="center">
         </el-table-column>
-        <el-table-column prop="price" label="单价" align="center">
+        <el-table-column prop="price"
+          label="单价"
+          align="center">
         </el-table-column>
-        <el-table-column label="小计" align="center">
+        <el-table-column label="小计"
+          align="center">
           <template slot-scope="scope">
             <span>{{ (scope.row.num * scope.row.price).toFixed(2) }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" align="center">
+        <el-table-column label="操作"
+          align="center">
           <template slot-scope="scope">
-            <el-button
-              size="mini"
+            <el-button size="mini"
               type="danger"
-              @click="deleteItem(scope.$index, scope.row)"
-              >删除</el-button
-            >
+              @click="deleteItem(scope.$index, scope.row)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
-      <el-row type="flex" justify="end" style="padding-top:20px">
+      <el-row type="flex"
+        justify="end"
+        style="padding-top:20px">
         <el-col>
           <h3>收件人：{{ currentAddressInfo.recipient }}</h3>
           <h4>手机号：{{ currentAddressInfo.phoneNum }}</h4>
           <p>收货地址：{{ currentAddressInfo.address }}</p>
         </el-col>
         <el-col :span="4">
-          <el-button type="warning" size="medium " @click="drawer = true"
-            >更改收货地址</el-button
-          >
+          <el-button type="warning"
+            size="medium "
+            @click="drawer = true">更改收货地址</el-button>
         </el-col>
         <el-col :span="4">
-          <el-tag
-            type="success"
+          <el-tag type="success"
             effect="dark"
-            style="height:36px;line-height:36px;font-size:16px"
-            >总价：{{ totalPrice }} 元</el-tag
-          >
+            style="height:36px;line-height:36px;font-size:16px">总价：{{ totalPrice }} 元</el-tag>
         </el-col>
         <el-col :span="2">
-          <el-button
-            type="primary"
+          <el-button type="primary"
             size="medium "
             @click="createOrder"
-            :disabled="shoppingCart.length == 0"
-            >提交订单</el-button
-          >
+            :disabled="shoppingCart.length == 0">提交订单</el-button>
         </el-col>
       </el-row>
     </el-card>
-    <el-drawer
-      size="50%"
+    <el-drawer size="50%"
       title="请选择地址"
       :visible.sync="drawer"
-      direction="ttb"
-    >
-      <el-row :gutter="20" style="padding:50px">
-        <el-radio-group
-          v-model="currentAddressInfoIndex"
-          @change="changeAddress"
-        >
-          <el-radio
-            v-for="(addressInfo, index) in addressInfos"
+      direction="ttb">
+      <el-row :gutter="20"
+        style="padding:50px">
+        <el-radio-group v-model="currentAddressInfoIndex"
+          @change="changeAddress">
+          <el-radio v-for="(addressInfo, index) in addressInfos"
             :key="addressInfo.id"
-            :label="index"
-          >
+            :label="index">
             <el-col>
               <h4>
                 收件人：<span>{{ addressInfo.recipient }}</span>
@@ -99,9 +100,7 @@
               <p>
                 手机号：<span>{{ addressInfo.phoneNum }}</span>
               </p>
-              <span
-                >收货地址：<span>{{ addressInfo.address }}</span></span
-              >
+              <span>收货地址：<span>{{ addressInfo.address }}</span></span>
               <el-divider></el-divider>
             </el-col>
           </el-radio>
@@ -109,30 +108,28 @@
       </el-row>
     </el-drawer>
 
-    <el-drawer
-      size="70%"
+    <el-drawer size="70%"
       :visible.sync="drawerQrCode"
       direction="ttb"
       @open="showQrCode"
-      @close="closeQrCode"
-    >
-      <el-row type="flex" justify="center">
-        <el-col :span="4" style="text-align:center">
-          <img
-            src="https://gw.alipayobjects.com/zos/basement_prod/dd285986-f1d3-40a2-a92c-b252f2c31de0.svg"
+      @close="closeQrCode">
+      <el-row type="flex"
+        justify="center">
+        <el-col :span="4"
+          style="text-align:center">
+          <img src="https://gw.alipayobjects.com/zos/basement_prod/dd285986-f1d3-40a2-a92c-b252f2c31de0.svg"
             alt="alipayLogo"
-            style="margin-bottom:10px"
-          />
+            style="margin-bottom:10px" />
           <h4 style="margin-bottom:20px">推荐支付宝付款</h4>
-          <div ref="qrCodeDiv" style="margin-bottom:20px" id="qrcode">
+          <div ref="qrCodeDiv"
+            style="margin-bottom:20px"
+            id="qrcode">
             正在加载二维码...
           </div>
-          <el-button
-            @click="showQrCode"
+          <el-button @click="showQrCode"
             type="primary"
             icon="el-icon-refresh"
-            circle
-          ></el-button>
+            circle></el-button>
         </el-col>
       </el-row>
     </el-drawer>
@@ -184,6 +181,11 @@ export default {
       this.$store.commit('setShoppingCart', this.shoppingCart)
     },
     createOrder() {
+      if (this.addressInfos.length === 0) {
+        this.$message.warning('请先创建收货地址')
+        this.$router.push('/address-info')
+      }
+
       this.$http
         .post('/order/create/' + this.currentAddressInfo.id, this.shoppingCart)
         .then(res => {
