@@ -107,9 +107,7 @@ export default {
           this.clothingInfoForm.img =
             this.clothingInfo.pictureInfoList[0].fileDomain +
             this.clothingInfo.pictureInfoList[0].path
-        } else {
-          this.$message.warning(res.data.message)
-        }
+        } 
       })
     },
     changeSize(size) {

@@ -35,8 +35,6 @@ export default {
       this.$http.get('/clothing/category/男士/1/5').then(res => {
         if (res.data.code == 10000) {
           this.clothingInfos = res.data.data.list
-        } else {
-          this.$message.warning(res.data.message)
         }
       })
     },

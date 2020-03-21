@@ -101,9 +101,7 @@ export default {
           if (res.data.code == 10000) {
             this.$message.success(res.data.message)
             this.$router.push('/login')
-          } else {
-            this.$message.warning(res.data.message)
-          }
+          } 
         })
       })
     }

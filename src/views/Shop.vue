@@ -56,8 +56,6 @@ export default {
         .then(res => {
           if (res.data.code == 10000) {
             this.clothingInfos = res.data.data.list
-          } else {
-            this.$message.warning(res.data.message)
           }
         })
     },

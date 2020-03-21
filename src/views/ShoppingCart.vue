@@ -171,8 +171,6 @@ export default {
           this.currentAddressInfo = this.addressInfos[
             this.currentAddressInfoIndex
           ]
-        } else {
-          this.$message.warning(res.data.message)
         }
       })
     },
@@ -195,8 +193,6 @@ export default {
             this.$store.commit('setShoppingCart', this.shoppingCart)
             this.orderId = res.data.data
             this.drawerQrCode = true
-          } else {
-            this.$message.warning(res.data.message)
           }
         })
     },
@@ -221,7 +217,7 @@ export default {
             }, 3000)
           } else {
             document.getElementById('qrcode').innerHTML = ''
-            this.$message.warning(res.data.message)
+            
           }
         })
     },

@@ -84,20 +84,24 @@ export default {
       addressInfoFormRules: {
         recipient: [
           { required: true, message: '请输入姓名', trigger: 'blur' },
-          { min: 1, max: 15, message: '长度在 3 到 15 个字符', trigger: 'blur' }
+          { min: 1, max: 15, message: '长度在 1 到 15 个字符', trigger: 'blur' }
         ],
         address: [
           { required: true, message: '请输入地址', trigger: 'blur' },
           {
             min: 5,
             max: 50,
-            message: '长度在 10 到 50 个字符',
+            message: '长度在 5 到 50 个字符',
             trigger: 'blur'
           }
         ],
         phoneNum: [
           { required: true, message: '请输入手机号', trigger: 'blur' },
-          { min: 11, max: 11, message: '长度在  11 个字符', trigger: 'blur' }
+          {
+            pattern: /^0{0,1}(13|15||16|18|19)[0-9]{9}$/,
+            message: '手机号格式不对',
+            trigger: 'blur'
+          }
         ]
       }
     }
@@ -110,8 +114,6 @@ export default {
       this.$http.get('/address').then(res => {
         if (res.data.code == 10000) {
           this.addressInfos = res.data.data
-        } else {
-          this.$message.warning(res.data.message)
         }
       })
     },
@@ -119,8 +121,6 @@ export default {
       this.$http.get('/address/id/' + id).then(res => {
         if (res.data.code == 10000) {
           this.addressInfoForm = res.data.data
-        } else {
-          this.$message.warning(res.data.message)
         }
       })
       this.dialogForm = true
@@ -136,8 +136,6 @@ export default {
             if (res.data.code == 10000) {
               this.$message.success(res.data.message)
               this.initData()
-            } else {
-              this.$message.warning(res.data.message)
             }
           })
         })
@@ -158,8 +156,6 @@ export default {
               this.dialogForm = false
               this.$message.success(res.data.message)
               this.initData()
-            } else {
-              this.$message.warning(res.data.message)
             }
           })
       })

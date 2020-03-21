@@ -175,8 +175,6 @@ export default {
         .then(res => {
           if (res.data.code == 10000) {
             this.pageInfo = res.data.data
-          } else {
-            this.$message.warning(res.data.message)
           }
         })
     },
@@ -201,9 +199,7 @@ export default {
               if (res.data.code == 10000) {
                 this.getData()
                 this.$message.success('确认收货成功')
-              } else {
-                this.$message.warning(res.data.message)
-              }
+              } 
             })
         })
         .catch(() => {
@@ -223,8 +219,6 @@ export default {
               if (res.data.code == 10000) {
                 this.getData()
                 this.$message.success('订单删除成功')
-              } else {
-                this.$message.warning(res.data.message)
               }
             })
         })
@@ -257,7 +251,6 @@ export default {
             }, 3000)
           } else {
             document.getElementById('qrcode').innerHTML = ''
-            this.$message.warning(res.data.message)
           }
         })
     },

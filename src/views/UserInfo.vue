@@ -112,7 +112,7 @@ export default {
           { required: true, message: '请输入手机号', trigger: 'blur' },
           { validator: validatePhone, trigger: 'blur' },
           {
-            pattern: /^0{0,1}(13[0-9]|15[0-9]||16[0-9]|18[0-9]|19[0-9])[0-9]{8}$/,
+            pattern: /^0{0,1}(13|15||16|18|19)[0-9]{9}$/,
             message: '手机号格式不对',
             trigger: 'blur'
           }
@@ -128,8 +128,6 @@ export default {
       this.$http.get('/user').then(res => {
         if (res.data.code == 10000) {
           this.userInfo = res.data.data
-        } else {
-          this.$message.warning(res.data.message)
         }
       })
     },
@@ -144,9 +142,7 @@ export default {
             if (res.data.code == 10000) {
               this.$message.success(res.data.message)
               //保存用户信息
-            } else {
-              this.$message.warning(res.data.message)
-            }
+            } 
           })
       })
     }
