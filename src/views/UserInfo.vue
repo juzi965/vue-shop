@@ -140,9 +140,10 @@ export default {
           .post('/user/saveUserInfo', qs.stringify(this.userInfo))
           .then(res => {
             if (res.data.code == 10000) {
-              this.$message.success(res.data.message)
               //保存用户信息
-            } 
+              this.$store.commit('setUserInfo', res.data.data)
+              this.$message.success(res.data.message)
+            }
           })
       })
     }
