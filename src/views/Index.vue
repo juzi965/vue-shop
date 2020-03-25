@@ -1,6 +1,7 @@
 <template>
-  <!-- 导航菜单栏 -->
+
   <el-container>
+    <!-- 导航菜单栏 -->
     <el-header :class="{'header':true,'isFixed':isFixed}"
       height="80px">
       <Navigation></Navigation>
