@@ -106,7 +106,7 @@ export default {
           this.$router.push('/login')
         })
         .catch(() => {
-          this.$message.success('不退出啦，手滑点错了喽')
+          this.$message.success('手滑点错了')
         })
     }
   }

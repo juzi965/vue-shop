@@ -49,6 +49,7 @@ axios.interceptors.response.use((response) => {
   endLoading();
   // 无权限，跳转到登陆页面
   if (response.data.code === 55555) {
+    Message.warning(response.data.message)
     router.push('/login')
   } else if (response.data.code === 10001) { // 参数绑定错误
     Message.warning(response.data.data)

@@ -82,20 +82,24 @@ export default {
   mounted() {
     window.addEventListener('scroll', this.Scroll) // 监听滚动事件，然后用handleScroll这个方法进行相应的处理
     // WebSocket
-    if ('WebSocket' in window) {
-      this.websocket = new WebSocket(
-        'ws://127.0.0.1:8888/websocket/' + this.$store.state.userInfo.id
-      )
-      this.initWebSocket()
-    } else {
-      this.$message.warning('当前浏览器不支持 WebSocket')
+    if (this.$store.state.userInfo !== null) {
+      if ('WebSocket' in window) {
+        this.websocket = new WebSocket(
+          'ws://127.0.0.1:8888/websocket/' + this.$store.state.userInfo.id
+        )
+        this.initWebSocket()
+      } else {
+        this.$message.warning('当前浏览器不支持 WebSocket')
+      }
     }
   },
   destroyed() {
     document.removeEventListener('scroll', this.Scroll)
   },
   beforeDestroy() {
-    this.onbeforeunload()
+    if (this.$store.state.userInfo !== null) {
+      this.onbeforeunload()
+    }
   }
 }
 </script>
