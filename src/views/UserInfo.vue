@@ -2,7 +2,7 @@
   <div>
     <el-card>
       <div slot="header"
-        class="clearfix">
+        class="clearfix hidden-sm-and-down">
         <span>个人信息</span>
       </div>
       <el-form label-position="top"
@@ -152,4 +152,5 @@ export default {
 }
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+</style>

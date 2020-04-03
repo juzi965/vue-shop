@@ -2,7 +2,7 @@
   <div>
     <el-card>
       <div slot="header"
-        class="clearfix">
+        class="clearfix hidden-sm-and-down">
         <span>地址信息</span>
         <el-button style="float: right; padding: 3px 0"
           type="text"

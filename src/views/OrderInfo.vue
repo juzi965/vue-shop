@@ -2,7 +2,7 @@
   <div>
     <el-card>
       <div slot="header"
-        class="clearfix">
+        class="clearfix hidden-sm-and-down">
         <span>订单信息</span>
       </div>
       <div v-for="(orderInfo, index) in pageInfo.list"
@@ -199,7 +199,7 @@ export default {
               if (res.data.code == 10000) {
                 this.getData()
                 this.$message.success('确认收货成功')
-              } 
+              }
             })
         })
         .catch(() => {

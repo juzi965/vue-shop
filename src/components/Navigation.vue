@@ -14,7 +14,7 @@
 
         </span>
       </el-col>
-      <el-col :span="4"
+      <el-col :span="6"
         class="hidden-xs-only">
         <el-menu :default-active="this.$route.path"
           router
