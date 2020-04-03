@@ -30,7 +30,8 @@
               :max="scope.row.stock"
               size="mini"
               label="商品购买数量"
-              @change="changeClothingNum"></el-input-number>
+              @change="changeClothingNum"
+              style="width:100%"></el-input-number>
           </template>
         </el-table-column>
         <el-table-column prop="stock"
@@ -58,23 +59,25 @@
       </el-table>
       <el-row type="flex"
         justify="end"
-        style="padding-top:20px">
+        style="padding-top:20px"
+        :gutter="20">
         <el-col>
           <h3>收件人：{{ currentAddressInfo.recipient }}</h3>
           <h4>手机号：{{ currentAddressInfo.phoneNum }}</h4>
           <p>收货地址：{{ currentAddressInfo.address }}</p>
         </el-col>
         <el-col :span="4">
-          <el-button type="warning"
-            size="medium "
-            @click="drawer = true">更改收货地址</el-button>
-        </el-col>
-        <el-col :span="4">
           <el-tag type="success"
             effect="dark"
-            style="height:36px;line-height:36px;font-size:16px">总价：{{ totalPrice }} 元</el-tag>
+            style="height:36px;line-height:36px;font-size:15px;">总价：{{ totalPrice }} ￥</el-tag>
         </el-col>
-        <el-col :span="2">
+        <el-col :span="3">
+          <el-button type="warning"
+            size="medium "
+            @click="drawer = true"
+            style="">更改地址</el-button>
+        </el-col>
+        <el-col :span="3">
           <el-button type="primary"
             size="medium "
             @click="createOrder"
@@ -217,7 +220,6 @@ export default {
             }, 3000)
           } else {
             document.getElementById('qrcode').innerHTML = ''
-            
           }
         })
     },

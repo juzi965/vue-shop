@@ -1,12 +1,21 @@
 <template>
   <div class="nav">
-    <el-row type="flex"
-      justify="space-between">
-      <el-col :span="4">
-        <span class="title">HooYa</span>
+    <el-row>
+      <el-col :span="4"
+        style="float:left;line-height: 80px;">
+        <img src="http://121.36.7.244:8089/logo/logo.png"
+          width="80%">
       </el-col>
+      <el-col :span="2"
+        class="hidden-sm-and-up"
+        style="width:100px">
+        <span class="el-icon-s-unfold menuD"
+          @click="changeMenuDrawer()">
 
-      <el-col :span="8">
+        </span>
+      </el-col>
+      <el-col :span="4"
+        class="hidden-xs-only">
         <el-menu :default-active="this.$route.path"
           router
           :collapse="isCollapse"
@@ -15,8 +24,7 @@
           text-color="#000000"
           active-text-color="#FF1232">
           <el-menu-item index="/welcome">首页</el-menu-item>
-          <el-submenu index="/shop/全部"
-            popper-class="popper">
+          <el-submenu index="/shop/全部">
             <template slot="title">商城</template>
             <el-menu-item index="/shop/全部">全部</el-menu-item>
             <el-menu-item index="/shop/男士">男士</el-menu-item>
@@ -30,12 +38,13 @@
           <!-- <el-menu-item index="/fitting-room">试衣间</el-menu-item> -->
         </el-menu>
       </el-col>
-      <el-col :span="7">
+      <el-col :span="12"
+        style="float:right">
         <el-row type="flex"
           justify="end"
           class="head_right"
           :gutter="20">
-          <el-col :span="12"
+          <el-col :span="16"
             :offset="-3">
             <el-input v-model="keyWord"
               suffix-icon="el-icon-search"
@@ -51,12 +60,11 @@
                 @click="pushShoppingCart"></i>
             </el-badge>
           </el-col>
-          <el-col :span="5"><i @click="logout"
+          <el-col :span="3"><i @click="logout"
               class="el-icon-close"></i></el-col>
         </el-row>
       </el-col>
     </el-row>
-
   </div>
 </template>
 
@@ -65,6 +73,7 @@ export default {
   name: 'Navigation',
   data() {
     return {
+      menuDrawer: false,
       isCollapse: false,
       whatMode: 'horizontal',
       seachRules: {
@@ -79,6 +88,9 @@ export default {
     }
   },
   methods: {
+    changeMenuDrawer() {
+      this.$store.commit('setMenuDrawer', !this.$store.state.menuDrawer)
+    },
     onEnterSearch() {
       this.$router.push({
         path: '/shop/' + this.keyWord
@@ -114,11 +126,8 @@ export default {
 </script>
 <style lang="less" scoped>
 .title {
-  z-index: 9999;
-  font-size: 40px;
-  line-height: 80px;
+  z-index: 2000;
   color: #000;
-  font-weight: 600;
 }
 .el-menu {
   padding-top: 10px;
@@ -127,9 +136,6 @@ export default {
     font-size: 15px;
     font-weight: 500;
   }
-}
-.popper {
-  text-align: center;
 }
 .head_right {
   padding-top: 20px;
@@ -153,5 +159,16 @@ export default {
   .el-col:hover {
     color: #ff1232;
   }
+}
+
+.el-submenu .el-menu-item {
+  min-width: 100px;
+}
+.menuD {
+  line-height: 80px;
+  font-size: 25px;
+}
+.menuD:hover {
+  color: #ff1232;
 }
 </style>

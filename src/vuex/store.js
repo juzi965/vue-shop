@@ -7,6 +7,7 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   // 定义状态
   state: {
+    menuDrawer: false,
     shoppingCart: JSON.parse(window.sessionStorage.getItem('shoppingCart')) || [],
     userInfo: JSON.parse(window.sessionStorage.getItem('userInfo')),
   },
@@ -18,6 +19,9 @@ const store = new Vuex.Store({
     setShoppingCart(state, data) {
       state.shoppingCart = data
       window.sessionStorage.setItem('shoppingCart', JSON.stringify(data))
+    },
+    setMenuDrawer(state, data) {
+      state.menuDrawer = data
     }
   }
 })

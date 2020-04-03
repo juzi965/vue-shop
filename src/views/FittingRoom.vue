@@ -1,8 +1,8 @@
 <template>
   <div>
     <el-row v-if="clothingInfo">
-      <el-col :span="16">
-        <el-carousel height="1200px"
+      <el-col :span="imgSpan">
+        <el-carousel :height="imgHeight"
           indicator-position="none">
           <el-carousel-item v-for="pictureInfo in clothingInfo.pictureInfoList"
             :key="pictureInfo.id">
@@ -12,7 +12,49 @@
         </el-carousel>
       </el-col>
       <el-col :span="8"
-        :class="{'goods-info':true,'isFixed':isFixed}">
+        :class="{'goods-info':true,'isFixed':isFixed,'hidden-xs-only':true}">
+        <el-row>
+          <el-col>
+            <h1>{{clothingInfoForm.name}}</h1>
+          </el-col>
+          <el-col>
+            <span style="font-size:20px">价格：￥&nbsp;{{clothingInfoForm.price}}</span>
+          </el-col>
+          <el-col>
+            <span style="font-size:18px">{{clothingInfoForm.content}}</span>
+          </el-col>
+          <el-col>
+            <el-radio-group v-model="clothingInfoForm.size"
+              @change="changeSize"
+              size="small">
+              <el-radio-button v-for="(attr,index) in clothingInfo.clothingAttrList"
+                :key="index"
+                :label="attr.size"></el-radio-button>
+            </el-radio-group>
+          </el-col>
+
+          <el-col>
+            <el-input-number v-model="clothingInfoForm.num"
+              :min="1"
+              :max="clothingInfoForm.stock"
+              controls-position="right"
+              style="width:100%"
+              label="商品购买数量"></el-input-number>
+          </el-col>
+          <el-col>
+            <el-button v-if="clothingInfoForm.stock>0"
+              type="primary"
+              style="width:100%"
+              @click="addShoppingCart">添加购物车</el-button>
+            <el-button v-else
+              type="primary"
+              style="width:100%"
+              disabled>暂时无货</el-button>
+          </el-col>
+        </el-row>
+      </el-col>
+      <el-col :span="24"
+        class="hidden-sm-and-up goods-info2">
         <el-row>
           <el-col>
             <h1>{{clothingInfoForm.name}}</h1>
@@ -61,6 +103,10 @@
 export default {
   data() {
     return {
+      screenWidth: '',
+      screenHeight: '',
+      imgHeight: '1200px',
+      imgSpan: 16,
       isFixed: false,
       clothingInfo: {},
       clothingInfoForm: {
@@ -107,7 +153,7 @@ export default {
           this.clothingInfoForm.img =
             this.clothingInfo.pictureInfoList[0].fileDomain +
             this.clothingInfo.pictureInfoList[0].path
-        } 
+        }
       })
     },
     changeSize(size) {
@@ -157,6 +203,35 @@ export default {
     }
   },
   mounted() {
+    this.screenWidth =
+      window.innerWidth ||
+      document.documentElement.clientWidth ||
+      document.body.clientWidth
+    if (this.screenWidth < 768) {
+      this.imgSpan = 24
+      this.imgHeight = '550px'
+    } else {
+      this.imgSpan = 16
+      this.imgHeight = '1200px'
+    }
+    this.screenHeight = document.body.clientHeight
+    window.onresize = () => {
+      return (() => {
+        this.screenWidth =
+          window.innerWidth ||
+          document.documentElement.clientWidth ||
+          document.body.clientWidth
+
+        this.screenHeight = document.body.clientHeight
+        if (this.screenWidth < 768) {
+          this.imgSpan = 24
+          this.imgHeight = '550px'
+        } else {
+          this.imgSpan = 16
+          this.imgHeight = '1200px'
+        }
+      })()
+    }
     window.addEventListener('scroll', this.handleScroll)
   },
   destroyed() {
@@ -180,7 +255,9 @@ export default {
   transition: all 0.3s ease-in-out;
   transform: translateX(500px) !important;
 }
-
+.el-carousel {
+  height: 100%;
+}
 .goods-info {
   position: fixed;
   right: 0;
@@ -194,6 +271,15 @@ export default {
     padding-bottom: 40px;
     .el-col {
       margin-bottom: 45px;
+    }
+  }
+}
+.goods-info2 {
+  text-align: center;
+  .el-row {
+    padding-bottom: 20px;
+    .el-col {
+      margin-bottom: 20px;
     }
   }
 }

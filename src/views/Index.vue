@@ -8,6 +8,32 @@
     </el-header>
     <el-main class="main">
       <router-view />
+      <el-drawer :visible.sync="menuDrawer"
+        size="40%"
+        direction="ltr"
+        :with-header="false"
+        :before-close="handleClose">
+        <el-menu :default-active="this.$route.path"
+          router
+          background-color="#FFFFFF"
+          text-color="#000000"
+          active-text-color="#FF1232">
+          <el-menu-item index="/welcome">首页</el-menu-item>
+          <el-submenu index="/shop/全部">
+            <template slot="title">商城</template>
+            <el-menu-item index="/shop/全部">全部</el-menu-item>
+            <el-menu-item index="/shop/男士">男士</el-menu-item>
+            <el-menu-item index="/shop/女士">女士</el-menu-item>
+            <el-menu-item index="/shop/儿童">儿童</el-menu-item>
+            <el-menu-item index="/shop/上衣">上衣</el-menu-item>
+            <el-menu-item index="/shop/裤子">裤子</el-menu-item>
+            <el-menu-item index="/shop/内衣">内衣</el-menu-item>
+            <el-menu-item index="/shop/帽子">帽子</el-menu-item>
+          </el-submenu>
+          <!-- <el-menu-item index="/fitting-room">试衣间</el-menu-item> -->
+        </el-menu>
+
+      </el-drawer>
     </el-main>
     <el-footer class="footer">
       <Footer></Footer>
@@ -25,7 +51,15 @@ export default {
       isFixed: true
     }
   },
+  computed: {
+    menuDrawer() {
+      return this.$store.state.menuDrawer
+    }
+  },
   methods: {
+    handleClose() {
+      this.$store.commit('setMenuDrawer', false)
+    },
     Scroll() {
       let scrollTop =
         window.pageYOffset ||
@@ -86,7 +120,8 @@ export default {
     if (this.$store.state.userInfo !== null) {
       if ('WebSocket' in window) {
         this.websocket = new WebSocket(
-          'ws://127.0.0.1:8888/websocket/' + this.$store.state.userInfo.id
+          // 'ws://127.0.0.1:8888/websocket/' + this.$store.state.userInfo.id
+          'ws://121.36.7.244:8888/websocket/' + this.$store.state.userInfo.id
         )
         this.initWebSocket()
       } else {
