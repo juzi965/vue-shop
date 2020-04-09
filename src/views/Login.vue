@@ -105,7 +105,7 @@
           <el-col :span="12">
             <el-button type="primary"
               style="width: 100%;"
-              @click="register">保存信息</el-button>
+              @click="register">注册</el-button>
           </el-col>
         </el-row>
       </el-form>

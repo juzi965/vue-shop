@@ -3,7 +3,7 @@
     <el-row>
       <el-col :span="4"
         style="float:left;line-height: 80px;">
-        <img src="http://121.36.7.244:8089/logo/logo.png"
+        <img src="https://file.hooya.top:8080/logo/logo.png"
           width="80%">
       </el-col>
       <el-col :span="2"
